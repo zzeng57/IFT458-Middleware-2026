@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IFT Middleware 2026 | React Native Setup Guide</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
+          crossorigin="anonymous">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: #0d1117;
+            color: #c9d1d9;
+            min-height: 100vh;
+        }
+
+        /* ===== HEADER ===== */
+        .site-header {
+            background: linear-gradient(135deg, #161b22 0%, #0d1117 100%);
+            border-bottom: 2px solid #e94560;
+            padding: 20px 0;
+            text-align: center;
+        }
+        .site-header h1 {
+            color: #e94560;
+            font-size: 1.8em;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        .site-header p {
+            color: #8b949e;
+            font-size: 1em;
+            margin: 0;
+        }
+
+        /* ===== TABS ===== */
+        .tab-bar {
+            background: #161b22;
+            border-bottom: 1px solid #30363d;
+            display: flex;
+            overflow-x: auto;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .tab-btn {
+            background: none;
+            border: none;
+            color: #8b949e;
+            padding: 12px 20px;
+            font-size: 0.9em;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+            border-bottom: 3px solid transparent;
+            transition: all 0.2s;
+        }
+        .tab-btn:hover {
+            color: #c9d1d9;
+            background: #21262d;
+        }
+        .tab-btn.active {
+            color: #e94560;
+            border-bottom-color: #e94560;
+        }
+
+        /* ===== CONTENT ===== */
+        .tab-content {
+            display: none;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 25px 20px 60px;
+            animation: fadeIn 0.3s ease;
+        }
+        .tab-content.active { display: block; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ===== CARDS ===== */
+        .card-dark {
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+        .card-dark h3 {
+            color: #e94560;
+            font-size: 1.15em;
+            margin-bottom: 12px;
+        }
+
+        /* ===== CODE ===== */
+        code {
+            background: #1f2937;
+            color: #53d8fb;
+            padding: 2px 7px;
+            border-radius: 4px;
+            font-size: 0.9em;
+        }
+        pre {
+            background: #0d1b2a;
+            color: #53d8fb;
+            padding: 14px;
+            border-radius: 6px;
+            border: 1px solid #21262d;
+            overflow-x: auto;
+            margin: 10px 0;
+            font-size: 0.88em;
+            position: relative;
+        }
+        .copy-btn {
+            position: absolute;
+            top: 6px;
+            right: 6px;
+            background: #30363d;
+            color: #8b949e;
+            border: none;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.75em;
+            cursor: pointer;
+        }
+        .copy-btn:hover { background: #484f58; color: #fff; }
+
+        /* ===== BOXES ===== */
+        .warn-box {
+            background: #2d1b00;
+            border-left: 4px solid #e94560;
+            border-radius: 6px;
+            padding: 12px 15px;
+            margin: 12px 0;
+            font-size: 0.92em;
+        }
+        .success-box {
+            background: #0d2818;
+            border-left: 4px solid #28a745;
+            border-radius: 6px;
+            padding: 12px 15px;
+            margin: 12px 0;
+            font-size: 0.92em;
+        }
+        .info-box {
+            background: #0d1b2a;
+            border-left: 4px solid #53d8fb;
+            border-radius: 6px;
+            padding: 12px 15px;
+            margin: 12px 0;
+            font-size: 0.92em;
+        }
+
+        /* ===== TABLE ===== */
+        .tbl {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 12px 0;
+            font-size: 0.9em;
+        }
+        .tbl th {
+            background: #21262d;
+            color: #53d8fb;
+            padding: 10px 12px;
+            text-align: left;
+            border-bottom: 2px solid #30363d;
+        }
+        .tbl td {
+            padding: 9px 12px;
+            border-bottom: 1px solid #21262d;
+        }
+
+        /* ===== STEP NUMBER ===== */
+        .step-num {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            background: #e94560;
+            color: #fff;
+            border-radius: 50%;
+            font-weight: 700;
+            font-size: 0.85em;
+            margin-right: 8px;
+            flex-shrink: 0;
+        }
+
+        /* ===== IMAGE MOCKUP (iPhone frame) ===== */
+        .phone-frame {
+            background: #000;
+            border-radius: 30px;
+            padding: 12px;
+            max-width: 260px;
+            margin: 15px auto;
+            border: 3px solid #333;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+        }
+        .phone-frame .notch {
+            width: 100px;
+            height: 18px;
+            background: #000;
+            border-radius: 0 0 14px 14px;
+            margin: 0 auto 8px;
+        }
+        .phone-frame img {
+            width: 100%;
+            border-radius: 16px;
+            display: block;
+        }
+        .phone-frame .home-bar {
+            width: 80px;
+            height: 4px;
+            background: #555;
+            border-radius: 3px;
+            margin: 8px auto 0;
+        }
+
+        /* ===== ACCORDION ===== */
+        .accordion-item-dark {
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 6px;
+            margin: 8px 0;
+            overflow: hidden;
+        }
+        .accordion-header {
+            padding: 12px 16px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            color: #c9d1d9;
+        }
+        .accordion-header:hover { background: #21262d; }
+        .accordion-header .arrow {
+            transition: transform 0.2s;
+            color: #e94560;
+        }
+        .accordion-header.open .arrow { transform: rotate(90deg); }
+        .accordion-body {
+            display: none;
+            padding: 0 16px 14px;
+            color: #8b949e;
+            line-height: 1.6;
+        }
+        .accordion-body.open { display: block; }
+
+        /* ===== STRUCTURE TREE ===== */
+        .tree {
+            background: #0d1b2a;
+            padding: 16px;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            color: #53d8fb;
+            line-height: 1.7;
+            font-size: 0.85em;
+            overflow-x: auto;
+        }
+
+        /* ===== PROGRESS TRACKER ===== */
+        .progress-steps {
+            display: flex;
+            gap: 4px;
+            margin: 15px 0;
+        }
+        .progress-step {
+            flex: 1;
+            height: 4px;
+            background: #21262d;
+            border-radius: 2px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .progress-step.done { background: #28a745; }
+        .progress-step.current { background: #e94560; }
+
+        /* ===== FOOTER ===== */
+        .site-footer {
+            text-align: center;
+            padding: 25px;
+            color: #484f58;
+            font-size: 0.85em;
+            border-top: 1px solid #21262d;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 600px) {
+            .tab-btn { padding: 10px 14px; font-size: 0.82em; }
+            .site-header h1 { font-size: 1.4em; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <div class="site-header">
+        <h1>IFT Middleware 2026</h1>
+        <p>Book Exchange Platform &mdash; React Native + Express API</p>
+    </div>
+
+    <!-- TABS -->
+    <div class="tab-bar" id="tabBar">
+        <button class="tab-btn active" data-tab="overview">Overview</button>
+        <button class="tab-btn" data-tab="backend">Backend Setup</button>
+        <button class="tab-btn" data-tab="mobile">Mobile Setup</button>
+        <button class="tab-btn" data-tab="devices">Device Options</button>
+        <button class="tab-btn" data-tab="testing">Testing</button>
+        <button class="tab-btn" data-tab="api">API Reference</button>
+        <button class="tab-btn" data-tab="troubleshoot">Troubleshooting</button>
+    </div>
+
+    <!-- ================= TAB: OVERVIEW ================= -->
+    <div class="tab-content active" id="tab-overview">
+        <h2 style="color:#fff; margin-bottom:15px;">Project Overview</h2>
+
+        <div class="info-box">
+            This project got two parts. The <strong>backend</strong> is a Express.js API server that handle user authentication (signup/login) and book CRUD operations with MongoDB. The <strong>mobile</strong> folder is a React Native app built with Expo that connect to the backend API. The mobile app got all the same features like the web version (login, register, book exchange, logout) but it run on your phone or in a emulator.
+        </div>
+
+        <!-- iPhone mockup -->
+        <div style="display:flex; gap:20px; justify-content:center; flex-wrap:wrap; margin:25px 0;">
+            <div>
+                <div class="phone-frame">
+                    <div class="notch"></div>
+                    <img src="/img/react_native.png" alt="Home Screen on iPhone">
+                    <div class="home-bar"></div>
+                </div>
+                <p style="text-align:center; color:#8b949e; font-size:0.82em; margin-top:6px;">Home Screen</p>
+            </div>
+            <div>
+                <div class="phone-frame">
+                    <div class="notch"></div>
+                    <img src="/img/signin.png" alt="Login Screen on iPhone">
+                    <div class="home-bar"></div>
+                </div>
+                <p style="text-align:center; color:#8b949e; font-size:0.82em; margin-top:6px;">Login Screen</p>
+            </div>
+            <div>
+                <div class="phone-frame">
+                    <div class="notch"></div>
+                    <img src="/img/protected.png" alt="Book Exchange on iPhone">
+                    <div class="home-bar"></div>
+                </div>
+                <p style="text-align:center; color:#8b949e; font-size:0.82em; margin-top:6px;">Book Exchange</p>
+            </div>
+        </div>
+
+        <h3 style="color:#fff; margin:20px 0 10px;">Project Structure</h3>
+        <div class="tree">
+Module 4 Activity 1 ReactNative/<br>
+&#9500;&#9472;&#9472; backend/ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;-- Express API server<br>
+&#9474;&nbsp;&nbsp; &#9500;&#9472;&#9472; app.js &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;-- Express config and routes<br>
+&#9474;&nbsp;&nbsp; &#9500;&#9472;&#9472; server.js &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;-- Entry point, connect to MongoDB<br>
+&#9474;&nbsp;&nbsp; &#9500;&#9472;&#9472; config.env &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;-- Environment variables<br>
+&#9474;&nbsp;&nbsp; &#9500;&#9472;&#9472; controllers/ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;-- Auth + Book logic<br>
+&#9474;&nbsp;&nbsp; &#9500;&#9472;&#9472; models/ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;-- User + Book schema<br>
+&#9474;&nbsp;&nbsp; &#9500;&#9472;&#9472; routes/ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;-- API route files<br>
+&#9474;&nbsp;&nbsp; &#9492;&#9472;&#9472; public/ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;-- This page + images<br>
+&#9474;<br>
+&#9492;&#9472;&#9472; mobile/ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;-- React Native Expo app<br>
+&nbsp;&nbsp;&nbsp; &#9500;&#9472;&#9472; App.js &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;-- Main app entry point<br>
+&nbsp;&nbsp;&nbsp; &#9500;&#9472;&#9472; screens/ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;-- All screen components<br>
+&nbsp;&nbsp;&nbsp; &#9492;&#9472;&#9472; utils/api.js &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;-- API helper functions<br>
+        </div>
+
+        <!-- React vs React Native -->
+        <h3 style="color:#fff; margin:20px 0 10px;">React vs React Native</h3>
+        <table class="tbl">
+            <thead>
+                <tr><th>React (Web)</th><th>React Native (Mobile)</th></tr>
+            </thead>
+            <tbody>
+                <tr><td><code>&lt;div&gt;</code></td><td><code>&lt;View&gt;</code></td></tr>
+                <tr><td><code>&lt;p&gt;</code> / <code>&lt;span&gt;</code></td><td><code>&lt;Text&gt;</code></td></tr>
+                <tr><td><code>&lt;input&gt;</code></td><td><code>&lt;TextInput&gt;</code></td></tr>
+                <tr><td><code>&lt;button&gt;</code></td><td><code>&lt;TouchableOpacity&gt;</code></td></tr>
+                <tr><td><code>&lt;img&gt;</code></td><td><code>&lt;Image&gt;</code></td></tr>
+                <tr><td>CSS files</td><td><code>StyleSheet.create({})</code></td></tr>
+                <tr><td><code>onClick</code></td><td><code>onPress</code></td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- ================= TAB: BACKEND ================= -->
+    <div class="tab-content" id="tab-backend">
+        <h2 style="color:#fff; margin-bottom:15px;">Backend Setup</h2>
+
+        <div class="info-box">
+            The backend is a Express.js server that provide the REST API. It connect to MongoDB for storing users and books. You need to start this first before the mobile app.
+        </div>
+
+        <!-- Step 1 -->
+        <div class="card-dark">
+            <h3><span class="step-num">1</span> Open Terminal and Navigate</h3>
+            <p>Open your terminal (Command Prompt, PowerShell, or Mac Terminal) and go to the backend folder:</p>
+            <pre>cd "Module 4 Activity 1 ReactNative/backend"</pre>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="card-dark">
+            <h3><span class="step-num">2</span> Install Dependencies</h3>
+            <p>Install all the Node.js packages that the backend need:</p>
+            <pre>npm install</pre>
+            <p style="margin-top:8px;">This will read <code>package.json</code> and download all the required libraries like express, mongoose, jsonwebtoken, bcryptjs, cors, etc.</p>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="card-dark">
+            <h3><span class="step-num">3</span> Check config.env</h3>
+            <p>Make sure the <code>config.env</code> file got your MongoDB connection string and JWT secret:</p>
+            <pre>DATABASE=mongodb+srv://your-connection-string
+JWT_SECRET=your-secret-key
+JWT_EXPIRES_IN=90d
+JWT_COOKIE_EXPIRES_IN=90
+PORT=4000</pre>
+            <div class="warn-box">
+                <strong>Important:</strong> If you dont have a MongoDB Atlas account yet, go to <a href="https://www.mongodb.com/cloud/atlas" target="_blank" style="color:#53d8fb;">mongodb.com/cloud/atlas</a> and create a free cluster first.
+            </div>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="card-dark">
+            <h3><span class="step-num">4</span> Start the Server</h3>
+            <pre>npm start</pre>
+            <div class="success-box">
+                <strong>If it work you should see:</strong><br>
+                <code>App running on port 4000...</code><br>
+                <code>DB connection successful!</code>
+            </div>
+            <p style="margin-top:10px;">The API is now live at <code>http://localhost:4000</code></p>
+            <div class="warn-box">
+                <strong>Keep this terminal open!</strong> The backend must stay running while you use the mobile app. If you close the terminal the API stop and the mobile app cant connect.
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= TAB: MOBILE ================= -->
+    <div class="tab-content" id="tab-mobile">
+        <h2 style="color:#fff; margin-bottom:15px;">Mobile App Setup</h2>
+
+        <div class="info-box">
+            The mobile app is built with React Native and Expo. Expo make it easy to run React Native apps without needing Android Studio or Xcode.
+        </div>
+
+        <!-- Step 1 -->
+        <div class="card-dark">
+            <h3><span class="step-num">1</span> Prerequisites</h3>
+            <p>Make sure you got these installed on your computer:</p>
+            <table class="tbl">
+                <thead><tr><th>Tool</th><th>Check Command</th><th>Install</th></tr></thead>
+                <tbody>
+                    <tr>
+                        <td>Node.js v16+</td>
+                        <td><code>node --version</code></td>
+                        <td><a href="https://nodejs.org" target="_blank" style="color:#53d8fb;">nodejs.org</a></td>
+                    </tr>
+                    <tr>
+                        <td>npm</td>
+                        <td><code>npm --version</code></td>
+                        <td>Come with Node.js</td>
+                    </tr>
+                    <tr>
+                        <td>Expo CLI</td>
+                        <td><code>npx expo --version</code></td>
+                        <td><code>npm install -g expo-cli</code></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="card-dark">
+            <h3><span class="step-num">2</span> Find Your IP Address</h3>
+            <p>Your phone cant use <code>localhost</code> because that mean the phone itself. You need your computer IP address on the WiFi network.</p>
+
+            <div class="accordion-item-dark" style="margin-top:10px;">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <span>Mac</span><span class="arrow">&#9654;</span>
+                </div>
+                <div class="accordion-body">
+                    <pre>ipconfig getifaddr en0</pre>
+                    <p>This give you something like <code>192.168.1.45</code></p>
+                </div>
+            </div>
+            <div class="accordion-item-dark">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <span>Windows</span><span class="arrow">&#9654;</span>
+                </div>
+                <div class="accordion-body">
+                    <pre>ipconfig</pre>
+                    <p>Look for "IPv4 Address" under your WiFi adapter. It look like <code>192.168.1.xxx</code></p>
+                </div>
+            </div>
+            <div class="accordion-item-dark">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <span>Linux</span><span class="arrow">&#9654;</span>
+                </div>
+                <div class="accordion-body">
+                    <pre>hostname -I</pre>
+                    <p>Take the first IP address it show you.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="card-dark">
+            <h3><span class="step-num">3</span> Update the API URL</h3>
+            <p>Open the file <code>mobile/utils/api.js</code> and find the <code>PHONE_API_BASE</code> variable. Change the IP to YOUR computer IP:</p>
+            <pre>// Change this line to your computer IP address
+const PHONE_API_BASE = 'http://192.168.1.YOUR_IP:4000/api/v1';</pre>
+            <div class="warn-box">
+                <strong>This is the #1 most common mistake!</strong> If you skip this step the app will show "Network Error" when you try to login or register from your phone.
+            </div>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="card-dark">
+            <h3><span class="step-num">4</span> Install Mobile Dependencies</h3>
+            <p>Open a <strong>new terminal window</strong> (keep the backend running in the other one) and navigate to mobile folder:</p>
+            <pre>cd "Module 4 Activity 1 ReactNative/mobile"
+npm install</pre>
+        </div>
+
+        <!-- Step 5 -->
+        <div class="card-dark">
+            <h3><span class="step-num">5</span> Start Expo</h3>
+            <pre>npx expo start</pre>
+            <div class="success-box">
+                <strong>You should see a QR code in your terminal!</strong> This QR code is what you scan with your phone to open the app.
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= TAB: DEVICES ================= -->
+    <div class="tab-content" id="tab-devices">
+        <h2 style="color:#fff; margin-bottom:15px;">Device Options</h2>
+
+        <div class="info-box">
+            You got 3 ways to run the mobile app. Pick the one that work best for you.
+        </div>
+
+        <!-- Option 1: Browser -->
+        <div class="card-dark">
+            <h3 style="color:#53d8fb;">Option 1: Web Browser (Easiest)</h3>
+            <p>After running <code>npx expo start</code>, press <code>w</code> in the terminal to open the app in your browser.</p>
+
+            <div style="display:flex; gap:15px; align-items:flex-start; flex-wrap:wrap; margin:15px 0;">
+                <div class="phone-frame" style="max-width:220px;">
+                    <div class="notch"></div>
+                    <img src="/img/register.png" alt="Register Screen in browser">
+                    <div class="home-bar"></div>
+                </div>
+                <div style="flex:1; min-width:200px;">
+                    <p><strong>Simulate iPhone in Chrome:</strong></p>
+                    <p><span class="step-num" style="width:24px;height:24px;font-size:0.7em;">1</span> Open Chrome DevTools (F12 or Ctrl+Shift+I)</p>
+                    <p><span class="step-num" style="width:24px;height:24px;font-size:0.7em;">2</span> Click the device toggle button (looks like a phone/tablet icon)</p>
+                    <p><span class="step-num" style="width:24px;height:24px;font-size:0.7em;">3</span> Select "iPhone 14 Pro" or any iPhone from the dropdown</p>
+                    <p><span class="step-num" style="width:24px;height:24px;font-size:0.7em;">4</span> Click the 3-dot menu, pick "Show device frame" for the iPhone look</p>
+                    <div class="info-box" style="margin-top:10px;">
+                        <strong>Tip:</strong> This is the fastest way to test. No phone needed at all. The app look and work the same as on a real phone.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Option 2: Phone -->
+        <div class="card-dark">
+            <h3 style="color:#28a745;">Option 2: Real Phone with Expo Go</h3>
+            <p>This is the most realistic way to test your app. It run on your actual phone as a native app.</p>
+
+            <p><strong>Setup steps:</strong></p>
+            <p><span class="step-num" style="width:24px;height:24px;font-size:0.7em;">1</span> Download <strong>Expo Go</strong> from App Store (iPhone) or Google Play (Android)</p>
+            <p><span class="step-num" style="width:24px;height:24px;font-size:0.7em;">2</span> Make sure your phone and computer are on the <strong>same WiFi network</strong></p>
+            <p><span class="step-num" style="width:24px;height:24px;font-size:0.7em;">3</span> Run <code>npx expo start</code> in the terminal</p>
+            <p><span class="step-num" style="width:24px;height:24px;font-size:0.7em;">4</span> Scan the QR code with your phone camera (iPhone) or Expo Go app (Android)</p>
+
+            <div class="warn-box" style="margin-top:12px;">
+                <strong>Your phone and computer MUST be on the same WiFi!</strong> If they on different networks the app will not connect. Also make sure you updated the IP address in <code>api.js</code>.
+            </div>
+
+            <div style="display:flex; justify-content:center; gap:15px; margin:15px 0; flex-wrap:wrap;">
+                <div class="phone-frame" style="max-width:200px;">
+                    <div class="notch"></div>
+                    <img src="/img/signin.png" alt="Login on iPhone">
+                    <div class="home-bar"></div>
+                </div>
+                <div class="phone-frame" style="max-width:200px;">
+                    <div class="notch"></div>
+                    <img src="/img/protected.png" alt="Books on iPhone">
+                    <div class="home-bar"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Option 3: Emulator -->
+        <div class="card-dark">
+            <h3 style="color:#ffc107;">Option 3: Emulator (Advanced)</h3>
+            <p>If you want a virtual phone on your computer screen, you can use a emulator. This need extra software installed.</p>
+
+            <div class="accordion-item-dark" style="margin-top:10px;">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <span>Android Emulator (Android Studio)</span><span class="arrow">&#9654;</span>
+                </div>
+                <div class="accordion-body">
+                    <p><span class="step-num" style="width:24px;height:24px;font-size:0.7em;">1</span> Install <a href="https://developer.android.com/studio" target="_blank" style="color:#53d8fb;">Android Studio</a></p>
+                    <p><span class="step-num" style="width:24px;height:24px;font-size:0.7em;">2</span> Open Android Studio > Tools > Device Manager</p>
+                    <p><span class="step-num" style="width:24px;height:24px;font-size:0.7em;">3</span> Create a Virtual Device (pick Pixel 7 or any phone)</p>
+                    <p><span class="step-num" style="width:24px;height:24px;font-size:0.7em;">4</span> Start the emulator first, then press <code>a</code> in the Expo terminal</p>
+                    <div class="warn-box">Android Studio is a big download (~2GB). Only use this if you really want a emulator.</div>
+                </div>
+            </div>
+            <div class="accordion-item-dark">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <span>iOS Simulator (Mac Only)</span><span class="arrow">&#9654;</span>
+                </div>
+                <div class="accordion-body">
+                    <p><span class="step-num" style="width:24px;height:24px;font-size:0.7em;">1</span> Install Xcode from the Mac App Store</p>
+                    <p><span class="step-num" style="width:24px;height:24px;font-size:0.7em;">2</span> Open Xcode > Preferences > Components > install a iOS Simulator</p>
+                    <p><span class="step-num" style="width:24px;height:24px;font-size:0.7em;">3</span> Press <code>i</code> in the Expo terminal to launch iOS simulator</p>
+                    <div class="warn-box">Xcode is only available on Mac and is a very big download (~12GB).</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= TAB: TESTING ================= -->
+    <div class="tab-content" id="tab-testing">
+        <h2 style="color:#fff; margin-bottom:15px;">Testing the App</h2>
+
+        <div class="info-box">
+            Follow these test to make sure everything is connected and working good.
+        </div>
+
+        <!-- Progress tracker -->
+        <p style="color:#8b949e; margin:15px 0 5px; font-size:0.85em;">Your testing progress (click to mark done):</p>
+        <div class="progress-steps" id="progressSteps">
+            <div class="progress-step" data-step="0" onclick="toggleProgress(this)" title="Register"></div>
+            <div class="progress-step" data-step="1" onclick="toggleProgress(this)" title="Login"></div>
+            <div class="progress-step" data-step="2" onclick="toggleProgress(this)" title="View Books"></div>
+            <div class="progress-step" data-step="3" onclick="toggleProgress(this)" title="Add Book"></div>
+            <div class="progress-step" data-step="4" onclick="toggleProgress(this)" title="Logout"></div>
+        </div>
+        <p style="color:#484f58; font-size:0.78em;">Register &rarr; Login &rarr; View Books &rarr; Add Book &rarr; Logout</p>
+
+        <!-- Test 1 -->
+        <div class="card-dark">
+            <h3><span class="step-num">1</span> Register a New User</h3>
+            <p>Open the app and tap <strong>Register</strong>. Fill in name, email, password, and confirm password. Tap the signup button.</p>
+            <div class="success-box">
+                <strong>Expected result:</strong> You see the "Authorization Successful" screen with your name and a JWT token. This mean the backend and mobile are connected good.
+            </div>
+        </div>
+
+        <!-- Test 2 -->
+        <div class="card-dark">
+            <h3><span class="step-num">2</span> Login</h3>
+            <p>Go to the Login screen. Enter the email and password you just created. Tap login.</p>
+            <div class="success-box">
+                <strong>Expected result:</strong> You see the success screen again with your user info.
+            </div>
+        </div>
+
+        <!-- Test 3 -->
+        <div class="card-dark">
+            <h3><span class="step-num">3</span> View Book Exchange</h3>
+            <p>After logging in, tap <strong>Books</strong> in the bottom navigation. This screen fetch all books from the API.</p>
+            <div class="success-box">
+                <strong>Expected result:</strong> You see a list of books (or a "No books available" message if the database is empty). If you see a error, your JWT token might be invalid - try logging in again.
+            </div>
+        </div>
+
+        <!-- Test 4 -->
+        <div class="card-dark">
+            <h3><span class="step-num">4</span> Add a Book</h3>
+            <p>On the Book Exchange screen, tap <strong>Add a New Book</strong>. Fill in the title, author, description, and pick a exchange type (Borrow or Trade).</p>
+            <div class="success-box">
+                <strong>Expected result:</strong> The book get added and you go back to the book list where you can see your new book.
+            </div>
+        </div>
+
+        <!-- Test 5 -->
+        <div class="card-dark">
+            <h3><span class="step-num">5</span> Logout</h3>
+            <p>Tap <strong>Logout</strong> in the bottom navigation. Confirm by tapping "Yes, Logout".</p>
+            <div class="success-box">
+                <strong>Expected result:</strong> You go back to the home screen. The bottom nav now show Login and Register instead of Books and Logout. Your session is cleared.
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= TAB: API ================= -->
+    <div class="tab-content" id="tab-api">
+        <h2 style="color:#fff; margin-bottom:15px;">API Endpoints Reference</h2>
+
+        <div class="info-box">
+            These are all the REST API routes that the mobile app call. The backend serve these at <code>http://localhost:4000</code>.
+        </div>
+
+        <h3 style="color:#e94560; margin:20px 0 10px;">Authentication Routes</h3>
+        <table class="tbl">
+            <thead>
+                <tr><th>Method</th><th>Endpoint</th><th>What It Do</th><th>Auth?</th></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code style="background:#0d4429;color:#28a745;">POST</code></td>
+                    <td><code>/api/v1/users/signup</code></td>
+                    <td>Create a new user account</td>
+                    <td>No</td>
+                </tr>
+                <tr>
+                    <td><code style="background:#0d4429;color:#28a745;">POST</code></td>
+                    <td><code>/api/v1/users/login</code></td>
+                    <td>Login and get JWT token</td>
+                    <td>No</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3 style="color:#e94560; margin:20px 0 10px;">Book Routes (Protected - need JWT)</h3>
+        <table class="tbl">
+            <thead>
+                <tr><th>Method</th><th>Endpoint</th><th>What It Do</th></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code style="background:#0d2a4a;color:#53d8fb;">GET</code></td>
+                    <td><code>/api/v1/books</code></td>
+                    <td>Get all books</td>
+                </tr>
+                <tr>
+                    <td><code style="background:#0d2a4a;color:#53d8fb;">GET</code></td>
+                    <td><code>/api/v1/books/:id</code></td>
+                    <td>Get one book by its ID</td>
+                </tr>
+                <tr>
+                    <td><code style="background:#0d4429;color:#28a745;">POST</code></td>
+                    <td><code>/api/v1/books</code></td>
+                    <td>Create a new book listing</td>
+                </tr>
+                <tr>
+                    <td><code style="background:#4a3d0d;color:#ffc107;">PUT</code></td>
+                    <td><code>/api/v1/books/:id</code></td>
+                    <td>Update a book by ID</td>
+                </tr>
+                <tr>
+                    <td><code style="background:#4a0d0d;color:#e94560;">DELETE</code></td>
+                    <td><code>/api/v1/books/:id</code></td>
+                    <td>Delete a book by ID</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3 style="color:#e94560; margin:20px 0 10px;">How Authentication Work</h3>
+        <div class="card-dark">
+            <p>When you login or signup, the server send back a JWT (JSON Web Token). The mobile app save this token in the phone storage. Every time you want to access a protected route (like books), the app send the token in the <code>Authorization</code> header:</p>
+            <pre>Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...</pre>
+            <p>The backend middleware check this token. If it valid, you get access. If not, you get a 401 error.</p>
+        </div>
+    </div>
+
+    <!-- ================= TAB: TROUBLESHOOTING ================= -->
+    <div class="tab-content" id="tab-troubleshoot">
+        <h2 style="color:#fff; margin-bottom:15px;">Troubleshooting</h2>
+
+        <div class="info-box">
+            Here are the most common problem students run into and how to fix them.
+        </div>
+
+        <!-- Accordion for each issue -->
+        <div class="accordion-item-dark">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+                <span>"Network Error" when trying to login/register</span><span class="arrow">&#9654;</span>
+            </div>
+            <div class="accordion-body">
+                <p><strong>Cause:</strong> The mobile app cant reach the backend server.</p>
+                <p><strong>Fix:</strong></p>
+                <p>1. Make sure the backend server is running (<code>npm start</code> in backend folder)</p>
+                <p>2. Check that you updated the IP address in <code>mobile/utils/api.js</code></p>
+                <p>3. Make sure phone and computer are on the same WiFi</p>
+                <p>4. Try using <code>http://</code> not <code>https://</code> in the API URL</p>
+            </div>
+        </div>
+
+        <div class="accordion-item-dark">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+                <span>"DB connection failed" error in terminal</span><span class="arrow">&#9654;</span>
+            </div>
+            <div class="accordion-body">
+                <p><strong>Cause:</strong> MongoDB connection string is wrong or MongoDB Atlas is not set up.</p>
+                <p><strong>Fix:</strong></p>
+                <p>1. Check <code>config.env</code> file - make sure the DATABASE url is correct</p>
+                <p>2. Make sure you replaced <code>&lt;password&gt;</code> with your actual MongoDB password</p>
+                <p>3. Go to MongoDB Atlas and make sure your IP is in the whitelist (or add 0.0.0.0/0 for allow all)</p>
+            </div>
+        </div>
+
+        <div class="accordion-item-dark">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+                <span>Blank white screen in browser</span><span class="arrow">&#9654;</span>
+            </div>
+            <div class="accordion-body">
+                <p><strong>Cause:</strong> Usually a JavaScript error that stop the app from rendering.</p>
+                <p><strong>Fix:</strong></p>
+                <p>1. Open browser DevTools (F12) and check the Console tab for red errors</p>
+                <p>2. Make sure <code>package.json</code> has <code>"main": "node_modules/expo/AppEntry.js"</code></p>
+                <p>3. Try deleting <code>node_modules</code> and running <code>npm install</code> again</p>
+                <p>4. Clear browser cache and reload</p>
+            </div>
+        </div>
+
+        <div class="accordion-item-dark">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+                <span>EMFILE: too many open files</span><span class="arrow">&#9654;</span>
+            </div>
+            <div class="accordion-body">
+                <p><strong>Cause:</strong> Metro bundler is trying to watch too many files (including the backend folder).</p>
+                <p><strong>Fix:</strong> Make sure <code>metro.config.js</code> exist in the mobile folder and it exclude the backend folder from watching. Also make sure <code>.watchmanconfig</code> file exist.</p>
+            </div>
+        </div>
+
+        <div class="accordion-item-dark">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+                <span>App look like a small "postage stamp" in browser</span><span class="arrow">&#9654;</span>
+            </div>
+            <div class="accordion-body">
+                <p><strong>Cause:</strong> Expo web by default show the app in a narrow mobile-width viewport.</p>
+                <p><strong>Fix:</strong> The App.js file already got CSS injection code that fix this. If it still look small, try using Chrome DevTools device toolbar to simulate a iPhone screen instead.</p>
+            </div>
+        </div>
+
+        <div class="accordion-item-dark">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+                <span>Expo Go cant find the app / QR code not working</span><span class="arrow">&#9654;</span>
+            </div>
+            <div class="accordion-body">
+                <p><strong>Fix:</strong></p>
+                <p>1. Make sure both device are on the same WiFi network</p>
+                <p>2. Try switching Expo to tunnel mode: <code>npx expo start --tunnel</code></p>
+                <p>3. This install <code>@expo/ngrok</code> and create a tunnel that work across networks</p>
+                <p>4. On Android, scan the QR code from inside the Expo Go app (not the camera)</p>
+            </div>
+        </div>
+
+        <div class="accordion-item-dark">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+                <span>"401 Unauthorized" on Book Exchange page</span><span class="arrow">&#9654;</span>
+            </div>
+            <div class="accordion-body">
+                <p><strong>Cause:</strong> Your JWT token is expired or not being sent correctly.</p>
+                <p><strong>Fix:</strong></p>
+                <p>1. Try logging out and logging back in</p>
+                <p>2. Check that <code>api.js</code> is sending the Authorization header with the saved token</p>
+                <p>3. Make sure the backend <code>authMiddleware.js</code> accept Bearer tokens (not just cookies)</p>
+            </div>
+        </div>
+
+        <div class="accordion-item-dark">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+                <span>react-native version mismatch warning</span><span class="arrow">&#9654;</span>
+            </div>
+            <div class="accordion-body">
+                <p><strong>Cause:</strong> The installed react-native version dont match what Expo SDK 50 expect.</p>
+                <p><strong>Fix:</strong> Make sure <code>package.json</code> got <code>"react-native": "0.73.6"</code> (not 0.73.4). Then delete <code>node_modules</code> and run <code>npm install</code> again.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="site-footer">
+        <p>IFT Middleware 2026 | Book Exchange Platform</p>
+        <p>Module 4 Activity 1 &mdash; React Native Version</p>
+    </div>
+
+    <!-- ===== JAVASCRIPT ===== -->
+    <script>
+        // Tab switching
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active from all tabs and content
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+
+                // Activate clicked tab
+                btn.classList.add('active');
+                document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+
+                // Scroll to top
+                window.scrollTo(0, 0);
+            });
+        });
+
+        // Accordion toggle
+        function toggleAccordion(header) {
+            header.classList.toggle('open');
+            const body = header.nextElementSibling;
+            body.classList.toggle('open');
+        }
+
+        // Progress tracker
+        function toggleProgress(step) {
+            step.classList.toggle('done');
+        }
+
+        // Copy code blocks
+        document.querySelectorAll('pre').forEach(pre => {
+            const btn = document.createElement('button');
+            btn.className = 'copy-btn';
+            btn.textContent = 'Copy';
+            btn.onclick = () => {
+                navigator.clipboard.writeText(pre.textContent.replace('Copy', '').trim());
+                btn.textContent = 'Copied!';
+                setTimeout(() => btn.textContent = 'Copy', 1500);
+            };
+            pre.style.position = 'relative';
+            pre.appendChild(btn);
+        });
+    </script>
+
+</body>
+</html>
