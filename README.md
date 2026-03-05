@@ -46,6 +46,16 @@ npx expo start
 
 You should see a QR code in the terminal. Press **W** on your keyboard to open the app in your web browser.
 
+## ON ERROR ##
+Most likely you have an aolder version of expo
+Update the "expo" package by installing 
+
+```
+npx expo install expo@latest
+npx expo start
+```
+
+
 ### Step 3: Test the App
 
 Once both the backend and mobile are running, you can register a new user, login, and use the book exchange features. Visit http://localhost:4000 in your browser for the full interactive setup guide with more details.
