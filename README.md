@@ -13,7 +13,8 @@ Open VS Code and go to File > Open Folder. Navigate to the `backend` folder and 
 Open a Terminal inside VS Code by going to Terminal > New Terminal (or press Ctrl + ` on your keyboard).
 
 ## IMPORTANT ##
-Since Git will not push the .env or any file name that starts with "." for security. Such as your applications keys. You will need to copy over your last "config.env" file to the back end project.
+Since Git will not push the .env or any file name that starts with "." for security. Such as your applications keys. You will need to copy over your last "config.env" file to the back end project. Make sure the PORT configuration is set to 4000, this is a hard requirement for this assignment.
+
 Then Install the dependencies first:
 
 ```
@@ -27,6 +28,11 @@ node server.js
 ```
 
 You should see "App running on port 4000..." and "DB connection successful!" in the terminal. Keep this terminal open and running.
+
+## Load the root path by typing in a browser 
+```
+http://localhost:4000
+```
 
 ### Step 2: Open Mobile App in a Second VS Code Window
 
