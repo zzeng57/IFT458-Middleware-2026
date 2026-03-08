@@ -3,6 +3,9 @@
 // It configures all the middleware and API routes
 // NOTE: This backend is API-only (no views)
 // React Native mobile app connects to these API endpoints
+// # Repository Update
+// Edited by Justin Im for assignment.
+
 
 const path = require('path');
 const express = require('express');
