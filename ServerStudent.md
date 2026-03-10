@@ -1,5 +1,5 @@
-# Server Notes - Julian Rodriguez
-Date: Mar 9 2026
+# Server Notes - [Student Name]
+Date: [Date]
 
 ## What I Learned
 - The backend use Express.js with MongoDB
