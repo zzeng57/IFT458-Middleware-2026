@@ -95,3 +95,7 @@ Once both the backend and mobile are running, you can register a new user, login
 ## Full Setup Guide
 
 Start the backend server and visit http://localhost:4000 for the full interactive setup guide with step-by-step instructions, device options, testing guide, API reference, troubleshooting, and Git workflow.
+
+
+## Kristen Hart Module 5 Activity 1 Test
+Editing a file to test Git workflow
