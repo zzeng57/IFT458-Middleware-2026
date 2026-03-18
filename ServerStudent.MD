@@ -1,43 +1,14 @@
-# Server Notes - [Sean Kimminau]
-Date: [03/10/2026]
-
-## What I Learned
-- The backend use Express.js with MongoDB
-- JWT tokens are used for authentication
-- The API run on port 4000
-- CORS is needed so the mobile app can connect
-
-## Edited a file for MModule 5 Activity 1 - [Kandle Mcgee]
-Date: [03/10/2026]
-
-## Edited a file for MModule 5 Activity 1[Mark Jenkins]
-Date: [03/10/2026]
-
-
-########################
-# Server Notes - Daniel Paz
-Date: 2026.03.14
-
-## What I Learned
-- The backend use Express.js with MongoDB
-- JWT tokens are used for authentication
-- The API run on port 4000
-- CORS is needed so the mobile app can connect
-
-################################
 # ServerStudent Notes
 
 ## Student Information
-Name: Heritier Bitambiki
+Name: Belmin Ramdedovic  
 Date: 03/18/2026
 
 ## What I Learned
-
-- The backend uses Express.js with MongoDB
-- JWT tokens are used for authentication
-- The API runs on port 4000
-- CORS is required so the mobile app can connect
+- The backend uses Express.js with MongoDB.
+- JWT tokens are used for authentication.
+- The API runs on port 4000.
+- CORS is required so the mobile app can connect to the backend.
 
 ## Notes
-
-This file was created as part of Module 5 Activity 1. I reviewed the backend setup and understood how the server connects to the database and communicates with the mobile application.
+For this activity, I reviewed the backend setup and learned how the server connects to MongoDB and supports the mobile application through REST API routes. I also confirmed that the backend must run on port 4000 for this assignment. After copying my `config.env` file into the backend folder, I installed the dependencies and started the server using `node server.js`. This helped me understand how the backend and mobile app work together in the Book Exchange Platform project.
