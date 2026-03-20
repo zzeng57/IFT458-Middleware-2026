@@ -1,0 +1,36 @@
+# Dependencies
+node_modules/
+.expo/
+.expo-shared/
+
+# Environment variables
+config.env
+.env
+.env.local
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Build outputs
+dist/
+build/
+web-build/
+
+# Debug logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Metro bundler
+.metro-health-check*
+
+# Watchman
+.watchmanconfig
+
+# Original backup images
+*_original.png
