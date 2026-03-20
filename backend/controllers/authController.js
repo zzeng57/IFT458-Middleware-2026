@@ -8,7 +8,7 @@ const crypto = require('crypto');
 const User = require('./../models/userModel');
 const jwt = require('jsonwebtoken');
 
-// Signup controller - creates a new user in the database
+// Signup controller - creates a new user 
 // React sends a POST request with JSON body {name, email, password, passwordConfirmation}
 exports.signup = async (req, res, next) => {
   try {
