@@ -1,4 +1,4 @@
-// App.js - Main entry point of the React Native mobile app
+// I changed this comment
 // Manages screen navigation and user authentication state
 import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, StatusBar, Platform } from 'react-native';
