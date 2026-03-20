@@ -1,4 +1,6 @@
 // app.js
+const loggerMiddleware = require('./loggerMiddleware');
+app.use(loggerMiddleware);
 // This is the main Express application file
 // It configures all the middleware and API routes
 // NOTE: This backend is API-only (no views)
