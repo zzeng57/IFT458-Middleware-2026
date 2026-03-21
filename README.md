@@ -106,3 +106,5 @@ This is another test edit.
 
 
 <!-- Test edit for Step 3 -->
+
+## Update: Blake Duprey
