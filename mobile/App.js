@@ -15,6 +15,10 @@ import LogoutScreen from './screens/LogoutScreen';
 // Import API helper
 import { getSavedUser } from './utils/api';
 
+
+
+const loggermiddleware = require('./loggerMiddleware'); //Bryce Pratt
+
 // Fix the web viewport so the app uses the full browser width
 // Expo web by default constrains the app to a narrow mobile width
 if (Platform.OS === 'web') {
