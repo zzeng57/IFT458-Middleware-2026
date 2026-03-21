@@ -98,6 +98,11 @@ Start the backend server and visit http://localhost:4000 for the full interactiv
 
 ## Assignment Test Edit
 This line was added to demonstrate editing a file in VS Code.
+
+Edited again on March 21, 2026.
 This is another test edit.
+
+# Update: Edited by VarmaTamada for Git assignment
+
 
 <!-- Test edit for Step 3 -->
