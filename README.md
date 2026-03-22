@@ -110,3 +110,7 @@ This is another test edit.
 ## Update: Blake Duprey
 
 ## Module 5 Activity 1 Step 3 Test Hamed Solaiman
+
+# Module 5 Activity 1 - Brad Exner
+
+Making a change to a file in VS after cloning the repository in step 2.
