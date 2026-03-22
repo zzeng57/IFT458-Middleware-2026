@@ -25,8 +25,8 @@ const app = require('./app');
 // Connect to the database and replace the password placeholder
 // with the actual password from the environment variable
 const DB = process.env.DATABASE.replace(
-  '<password>',
-  process.env.DATABASE_PASSWORD
+  '<db_password>',
+  process.env.DB_PASSWORD
 );
 
 // Connect to MongoDB using mongoose
@@ -47,7 +47,7 @@ mongoose
   });
 
 // Start the server on the port from config.env or default 3000
-const port = process.env.PORT || 4000;
+const port = process.env.PORT || 3000;
 const server = app.listen(port, () => {
   console.log(`App running on port ${port}...`);
   console.log(`To test the IFT 458 REST App Click Or Type: http://localhost:${port}...`);
