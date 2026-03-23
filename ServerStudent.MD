@@ -142,3 +142,13 @@ Settings → Collaborators → Add People and entering dsthapit@asu.edu. This is
 
 7. Overall Reflection
 This module connected everything — version control, backend servers, mobile frontends, and collaboration tools — into one real workflow. The biggest challenge was managing credentials and making sure the right GitHub account was authenticated. Going forward, I feel confident cloning repos, running full-stack projects locally, and pushing my work back to GitHub.
+
+
+# Server Notes - Tyler Long
+Date: 3/22/2026
+
+## What I Learned
+- The backend uses Express.js with MongoDB
+- JWT tokens are used for authentication
+- Basic git/github processes and workflows
+- F12 can be used to switch to a mobile display 
