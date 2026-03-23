@@ -1,0 +1,2 @@
+This assignment helped me to better understnd the flexibiliy of a mobile web site in a client / server application.
+I learned that Node.js and the related libraries can be used to host a mobile website.
