@@ -34,3 +34,17 @@ Adding a Collaborator I learned how to give another GitHub user access to my rep
 
 Overall Reflection This module connected everything — version control, backend servers, mobile frontends, and collaboration tools — into one real workflow. The biggest challenge was managing credentials and making sure the right GitHub account was authenticated. Going forward, I feel confident cloning repos, running full-stack projects locally, and pushing my work back to GitHub.
 
+Student Information
+Name: Ziqing Zeng Date: 03/22/2026
+
+What I Learned
+
+The importance of reading README.md files thoroughly before starting
+
+How a full-stack application requires both backend and frontend services running simultaneously
+
+The complete development workflow: clone → configure → run → test → document → commit → push
+
+Using Git as a version control tool to track changes and collaborate
+
+Adding collaborators to a GitHub repository using email addresses
