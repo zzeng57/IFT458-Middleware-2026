@@ -158,6 +158,8 @@ export const logoutUser = async () => {
     }
 };
 
+const BASE_URL = 'http://localhost:4000/api';
+
 // ============================================================
 // GET SAVED USER - checks if user is already logged in
 // ============================================================
